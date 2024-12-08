@@ -1,12 +1,19 @@
 import React from 'react';
 
+interface LocationData {
+  ip: string;
+  city: string;
+  country: string;
+  region: string;
+  latitude?: number;
+  longitude?: number;
+}
 
-
-async function getLocationByIP() {
+async function getLocationByIP(): Promise<LocationData | null> {
   const services = [
     {
       url: 'https://ipapi.co/json/',
-      transform: (data) => ({
+      transform: (data: any): LocationData => ({
         ip: data.ip,
         city: data.city || 'Unknown',
         country: data.country_name || 'Unknown',
@@ -17,7 +24,7 @@ async function getLocationByIP() {
     },
     {
       url: 'https://ip-api.com/json',
-      transform: (data) => ({
+      transform: (data: any): LocationData => ({
         ip: data.query,
         city: data.city || 'Unknown',
         country: data.country || 'Unknown',
@@ -34,7 +41,7 @@ async function getLocationByIP() {
         next: { revalidate: 3600 }, // Cache for 1 hour
         cache: 'force-cache',
         headers: {
-          'Accept': 'application/json'
+          Accept: 'application/json'
         }
       });
 
@@ -54,7 +61,7 @@ async function getLocationByIP() {
   return null;
 }
 
-export default async function LocationPage() {
+const LocationPage: React.FC = async () => {
   const location = await getLocationByIP();
 
   return (
@@ -78,4 +85,6 @@ export default async function LocationPage() {
       )}
     </div>
   );
-}
+};
+
+export default LocationPage;
