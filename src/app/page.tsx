@@ -68,7 +68,7 @@ const LocationPage: React.FC = async () => {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Your Location</h1>
       {location ? (
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="bg-white text-black shadow-md rounded-lg p-6">
           <p><strong>IP Address:</strong> {location.ip || 'Unknown'}</p>
           <p><strong>City:</strong> {location.city}</p>
           <p><strong>Country:</strong> {location.country}</p>
